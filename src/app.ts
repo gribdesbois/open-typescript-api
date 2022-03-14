@@ -27,7 +27,7 @@ const options = { useNewUrlParser: true, useUnifiedTopology: true }
 
 mongoose
   .connect(uri)
-  .then(() => console.log(`DB running on localhost:${PORT}`))
+  .then(() => console.log(`DB  connected`))
   .catch((error) => {
     throw error
   })
