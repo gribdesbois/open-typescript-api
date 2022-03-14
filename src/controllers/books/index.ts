@@ -11,6 +11,7 @@ export const addBook = async (req: Request, res: Response): Promise<void> => {
       author: body.author,
       year: body.year,
     })
+    delete book._id
 
     const newBook: IBook = await book.save()
     const allBooks: IBook[] = await Book.find()
@@ -26,7 +27,14 @@ export const deleteBook = async (
   req: Request,
   res: Response
 ): Promise<void> => {}
-export const getBooks = async (req: Request, res: Response): Promise<void> => {}
+export const getBooks = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const books: IBook[] = await Book.find()
+    res.status(200).json({ books })
+  } catch (error) {
+    throw error
+  }
+}
 export const updateBook = async (
   req: Request,
   res: Response
