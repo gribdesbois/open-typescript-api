@@ -12,7 +12,7 @@ const normalizePort = (val: string) => {
   }
   return false
 }
-const port = normalizePort(process.env.PORT || '3333')
+const port = normalizePort(process.env.PORT || '443')
 app.set('port', port)
 
 const errorHandler = (error: any) => {
