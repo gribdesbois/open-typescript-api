@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv'
 import express, { Express } from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
-//import todoRoutes from './routes'
+import booksRoutes from './routes'
 
 dotenv.config()
 
@@ -17,10 +17,11 @@ const corsOptions = {
 const app: express.Application = express()
 
 app.use(cors(corsOptions))
+app.use(express.json())
 
 const PORT: string | number = process.env.PORT || 4000
 
-//app.use(todoRoutes)
+app.use(booksRoutes)
 
 const uri = `${PROTOCOL}://${USER}:${PASSWORD}@${DB_URL}/${DB_NAME}?${DB_PARAMS}`
 const options = { useNewUrlParser: true, useUnifiedTopology: true }

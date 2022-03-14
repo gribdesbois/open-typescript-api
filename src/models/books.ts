@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 const bookSchema: Schema = new Schema(
   {
     id: {
-      type: uuidv4,
+      type: String,
       required: true,
       default: uuidv4(),
     },
