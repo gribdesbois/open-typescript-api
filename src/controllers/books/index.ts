@@ -61,7 +61,10 @@ export const updateBook = async (
       body,
     } = req
 
-    const updatedBook: IBook | null = await Book.updateOne({ id: id }, body)
+    const updatedBook: IBook | null = await Book.findOneAndUpdate(
+      { id: id },
+      body
+    )
     const allBooks: IBook[] = await Book.find()
     res.status(200).json({
       message: 'Book updated',
@@ -75,4 +78,13 @@ export const updateBook = async (
 export const getSingleBook = async (
   req: Request,
   res: Response
-): Promise<void> => {}
+): Promise<void> => {
+  {
+    try {
+      const book: IBook | null = await Book.findOne({ id: req.params.id })
+      res.status(200).json({ book })
+    } catch (error) {
+      throw error
+    }
+  }
+}
