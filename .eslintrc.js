@@ -22,7 +22,7 @@ module.exports = {
   rules: {
     semi: 'off',
     'import/prefer-default-export': 'off',
-    indent: ['error', 2],
+    indent: ['error', 2, { SwitchCase: 1 }],
     'import/extensions': [
       'warn',
       'ignorePackages',
@@ -46,6 +46,6 @@ module.exports = {
     'prettier',
     'eslint-config-prettier',
     'plugin:@typescript-eslint/recommended',
-    /*  'eslint-plugin-import', */
+    'eslint-plugin-prettier',
   ],
 }
