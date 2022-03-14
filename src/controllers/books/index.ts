@@ -1,14 +1,15 @@
 import { Response, Request } from 'express'
 import { IBook } from '../../types/books'
 import Book from '../../models/books'
+import xss from 'xss'
 
 export const addBook = async (req: Request, res: Response): Promise<void> => {
   try {
     const body = req.body as Pick<IBook, 'title' | 'author' | 'year'>
 
     const book: IBook = new Book({
-      title: body.title,
-      author: body.author,
+      title: xss(body.title),
+      author: xss(body.author),
       year: body.year,
     })
     /*  delete book._id //! not working */
@@ -60,10 +61,15 @@ export const updateBook = async (
       params: { id },
       body,
     } = req
+    const book = {
+      title: xss(body.title),
+      author: xss(body.author),
+      year: body.year,
+    }
 
     const updatedBook: IBook | null = await Book.findOneAndUpdate(
       { id: id },
-      body
+      book
     )
     const allBooks: IBook[] = await Book.find()
     res.status(200).json({
