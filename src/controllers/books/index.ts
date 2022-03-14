@@ -19,8 +19,8 @@ export const addBook = async (req: Request, res: Response): Promise<void> => {
     res
       .status(201)
       .json({ message: 'Book added', book: newBook, books: allBooks })
-  } catch (error) {
-    res.status(500).json({ error: error })
+  } catch (error: any) {
+    res.status(500).json({ error: new Error(error) })
   }
 }
 export const deleteBook = async (
@@ -39,16 +39,16 @@ export const deleteBook = async (
       book: deletedBook,
       books: allBooks,
     })
-  } catch (err) {
-    res.status(500).json({ error: error })
+  } catch (err: any) {
+    res.status(500).json({ error: new Error(err) })
   }
 }
 export const getBooks = async (req: Request, res: Response): Promise<void> => {
   try {
     const books: IBook[] = await Book.find()
     res.status(200).json({ books })
-  } catch (error) {
-    res.status(500).json({ error: error })
+  } catch (error: any) {
+    res.status(500).json({ error: new Error(error) })
   }
 }
 export const updateBook = async (
@@ -71,8 +71,8 @@ export const updateBook = async (
       book: updatedBook,
       books: allBooks,
     })
-  } catch (error) {
-    res.status(500).json({ error: error })
+  } catch (error: any) {
+    res.status(500).json({ error: new Error(error) })
   }
 }
 export const getSingleBook = async (
@@ -83,8 +83,8 @@ export const getSingleBook = async (
     try {
       const book: IBook | null = await Book.findOne({ id: req.params.id })
       res.status(200).json({ book })
-    } catch (error) {
-      res.status(500).json({ error: error })
+    } catch (error: any) {
+      res.status(500).json({ error: new Error(error) })
     }
   }
 }
