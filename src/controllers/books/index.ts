@@ -20,7 +20,7 @@ export const addBook = async (req: Request, res: Response): Promise<void> => {
       .status(201)
       .json({ message: 'Book added', book: newBook, books: allBooks })
   } catch (error) {
-    console.log(error)
+    res.status(500).json({ error: error })
   }
 }
 export const deleteBook = async (
@@ -40,7 +40,7 @@ export const deleteBook = async (
       books: allBooks,
     })
   } catch (err) {
-    console.log(err)
+    res.status(500).json({ error: error })
   }
 }
 export const getBooks = async (req: Request, res: Response): Promise<void> => {
@@ -48,7 +48,7 @@ export const getBooks = async (req: Request, res: Response): Promise<void> => {
     const books: IBook[] = await Book.find()
     res.status(200).json({ books })
   } catch (error) {
-    throw error
+    res.status(500).json({ error: error })
   }
 }
 export const updateBook = async (
@@ -72,7 +72,7 @@ export const updateBook = async (
       books: allBooks,
     })
   } catch (error) {
-    console.log(error)
+    res.status(500).json({ error: error })
   }
 }
 export const getSingleBook = async (
@@ -84,7 +84,7 @@ export const getSingleBook = async (
       const book: IBook | null = await Book.findOne({ id: req.params.id })
       res.status(200).json({ book })
     } catch (error) {
-      throw error
+      res.status(500).json({ error: error })
     }
   }
 }
