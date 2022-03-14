@@ -26,7 +26,23 @@ export const addBook = async (req: Request, res: Response): Promise<void> => {
 export const deleteBook = async (
   req: Request,
   res: Response
-): Promise<void> => {}
+): Promise<void> => {
+  try {
+    const bookToDelete: IBook | null = await Book.findOne({
+      id: req.params.id,
+    })
+    const deletedBook = await bookToDelete?.delete()
+
+    const allBooks: IBook[] = await Book.find()
+    res.status(200).json({
+      message: 'Book deleted',
+      book: deletedBook,
+      books: allBooks,
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}
 export const getBooks = async (req: Request, res: Response): Promise<void> => {
   try {
     const books: IBook[] = await Book.find()
@@ -46,7 +62,6 @@ export const updateBook = async (
     } = req
 
     const updatedBook: IBook | null = await Book.updateOne({ id: id }, body)
-
     const allBooks: IBook[] = await Book.find()
     res.status(200).json({
       message: 'Book updated',
